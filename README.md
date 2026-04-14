@@ -22,8 +22,7 @@ Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 
 apt-get update -y
-# instalamos tambien apache2 como nuestro web server
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin apache2
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
 ```
 
 Después, edita el Vagrant file para provisionar el script al correr `vagrant up` por primera vez,  enlazar el puerto 8080 del host con el puerto 80 del guest, y de más configuraciones (a gusto personal).
@@ -43,13 +42,12 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-Una vez configurado podremos arrancar la maquina virtual con vagrant up e instalará docker, docker-compose-plugin, dependencias necesarias recomendadas, y apache2.
+Una vez configurado podremos arrancar la maquina virtual con vagrant up e instalará docker, docker-compose-plugin y dependencias necesarias recomendadas.
 
 Entra con `vagrant ssh` a la máquina para asegurar que docker está instalado:
 
 ![Screenshot](images/status-docker-guest.png)
 
-Tambien, al haber instalado apache2 y configurado los puertos con el Vagrantfile, podremos ver nuestro servidor web desde el ordenador host en el navegador con la url http://localhost:8080/.
 
 ![Screenshot](images/apache-port-8080-host.png)
 

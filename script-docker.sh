@@ -17,8 +17,7 @@ Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 
 apt-get update -y
-# instalamos tambien apache2 como nuestro web server
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin apache2
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
 
 
 
