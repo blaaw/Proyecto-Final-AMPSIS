@@ -47,11 +47,11 @@ Una vez configurado podremos arrancar la maquina virtual con vagrant up e instal
 
 Entra con `vagrant ssh` a la máquina para asegurar que docker está instalado:
 
-![imagen.png](attachment:8060873a-0383-4f8f-a43b-30d68b9eb016:c0113e86-5212-4312-b618-8bee210a8649.png)
+![Screenshot](images/status-docker-guest.png)
 
 Tambien, al haber instalado apache2 y configurado los puertos con el Vagrantfile, podremos ver nuestro servidor web desde el ordenador host en el navegador con la url http://localhost:8080/.
 
-![imagen.png](attachment:f77172c2-2990-4f56-9f81-0917ce7085cf:imagen.png)
+![Screenshot](images/apache-port-8080-host.png)
 
 ## Como Añadir un archivo externo dentro de la maquina virtual
 
@@ -59,6 +59,6 @@ Tambien, al haber instalado apache2 y configurado los puertos con el Vagrantfile
   config.vm.provision "file", source: "docker-compose.yml", destination: "~/docker-compose.yml"
 ```
 
-![imagen.png](attachment:0baf2d8f-f64b-4464-bdd1-7c03eabe9542:imagen.png)
+![Screenshot](images/compose-config-host.png)
 
-![imagen.png](attachment:2d5cb2e9-2673-482e-845d-1cbde250684d:imagen.png)
+![Screenshot](images/compose-resurt-guest.png)
