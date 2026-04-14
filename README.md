@@ -49,8 +49,6 @@ Entra con `vagrant ssh` a la máquina para asegurar que docker está instalado:
 ![Screenshot](images/status-docker-guest.png)
 
 
-![Screenshot](images/apache-port-8080-host.png)
-
 ## Como Añadir un archivo externo dentro de la maquina virtual
 
 ```
