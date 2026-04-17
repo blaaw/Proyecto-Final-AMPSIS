@@ -1,1 +1,52 @@
-Hola, soy un compose file, escribeme
+# Docker compose Pablo Lopez 
+services:
+
+  db:
+    image: mariadb:10.6
+    container_name: wp_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_password
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - db_data:/var/lib/mysl
+
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    container_name: wp_site
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_password
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_content:/var/www/html
+
+  # Contenedor auxiliar para gestionar el código desde GitHub
+  git_sync:
+    image: alpine/git
+    container_name: wp_git_sync
+    volumes:
+      - wp_content:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["/bin/sh", "-c"]
+    # Comando para clonar o actualizar el contenido del repo de David
+    command: 
+      - |
+        if [ ! -d ".git" ]; then
+          git clone https://github.com/USUARIO_DAVID/REPOSITORIO.git .
+        else
+          git pull origin main
+        fi
+
+volumes:
+  db_data:
+  wp_content:
