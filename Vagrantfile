@@ -73,4 +73,5 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "script-docker.sh"
   
   config.vm.provision "file", source: "docker-compose.yml", destination: "~/compose/docker-compose.yml"
+  config.vm.provision "shell", inline: "cd /home/vagrant/compose && docker compose up -d"
 end
