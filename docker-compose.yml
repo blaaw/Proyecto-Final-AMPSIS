@@ -42,7 +42,7 @@ services:
     command: 
       - |
         if [ ! -d ".git" ]; then
-          git clone https://github.com/davidmtdaw/PaginaWebAMP.git
+          git clone https://github.com/davidmtdaw/PaginaWebAMP.git .
         else
           git pull origin main
         fi
