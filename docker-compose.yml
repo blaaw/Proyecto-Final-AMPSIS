@@ -29,24 +29,21 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - wp_content:/var/www/html
-
+      - git_content:/var/www/html/git
+      
   # Contenedor auxiliar para gestionar el código desde GitHub
-  git_sync:
-    image: alpine/git
-    container_name: wp_git_sync
+  git-sync:
+    build:
+      context: .
+      dockerfile: Dockerfile.git-sync
     volumes:
-      - wp_content:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ["/bin/sh", "-c"]
-    # Comando para clonar o actualizar el contenido del repo de David
-    command: 
-      - |
-        if [ ! -d ".git" ]; then
-          git clone https://github.com/davidmtdaw/PaginaWebAMP.git .
-        else
-          git pull origin main
-        fi
+      - git_content:/git-site
+    environment:
+      REPO_URL: https://github.com/blaaw/trial-webpage
+    depends_on:
+      - wordpress
 
 volumes:
   db_data:
   wp_content:
+  git_content:

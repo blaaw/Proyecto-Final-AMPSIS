@@ -73,5 +73,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "script-docker.sh"
   
   config.vm.provision "file", source: "docker-compose.yml", destination: "~/compose/docker-compose.yml"
-  config.vm.provision "shell", inline: "cd /home/vagrant/compose && docker compose up -d && docker compose run --rm git_sync"
+  config.vm.provision "file", source: "Dockerfile.git-sync", destination: "~/compose/Dockerfile.git-sync"
+  config.vm.provision "file", source: "git-sync.sh", destination: "~/compose/git-sync.sh"
+  
+  config.vm.provision "shell", inline: "cd /home/vagrant/compose && docker compose up -d"
 end
