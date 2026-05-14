@@ -29,7 +29,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - wp_content:/var/www/html
-      - git_content:/var/www/html/git
+      - git_content:/var/www/html/wp-content/themes/webfusion
       
   # Contenedor auxiliar para gestionar el código desde GitHub
   git-sync:
@@ -39,7 +39,7 @@ services:
     volumes:
       - git_content:/git-site
     environment:
-      REPO_URL: https://github.com/blaaw/trial-webpage
+      REPO_URL: https://github.com/blaaw/Proyecto-Final-AMPSIS
     depends_on:
       - wordpress
 
