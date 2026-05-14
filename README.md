@@ -197,5 +197,6 @@ Una vez que `vagrant up` ha terminado, la máquina virtual tiene esta organizaci
 
 (FOTO: captura de la terminal dentro de la máquina virtual mostrando el resultado de `ls ~/compose/` con los tres archivos de configuración, y el resultado de `docker volume ls` con los tres volúmenes `compose_db_data`, `compose_wp_content` y `compose_git_content` listados)
 
+---
 
 *Beckham Lawrence, Pablo Lopez & David Muñoz -- DAW1A*
