@@ -142,8 +142,7 @@ Guarda el archivo y vuelve a provisionar la máquina para que el cambio tenga ef
 vagrant reload --provision
 ```
 
-(FOTO: captura del archivo `docker-compose.yml` abierto en un editor de texto, con la línea `REPO_URL` visible dentro del bloque del servicio `git-sync`)
-
+![](img/cambio-repo.png)
 
 ## Cómo actualizar el código desde GitHub
 
@@ -155,9 +154,6 @@ vagrant ssh -c "cd ~/compose && docker compose run git-sync"
 
 Este comando lanza de nuevo el contenedor git-sync. El script `git-sync.sh` detecta que el repositorio ya existe y ejecuta `git pull` para traer solo los cambios nuevos.
 
-(FOTO: captura de la terminal mostrando el resultado del comando anterior, con los mensajes de `git pull` y la línea final `Repositorio actualizado.`)
-
----
 
 ## Cómo borrar todo y empezar desde cero
 
@@ -188,7 +184,7 @@ Una vez que `vagrant up` ha terminado, la máquina virtual tiene esta organizaci
 
 `/var/lib/docker/volumes/compose_git_content/` es el volumen compartido entre el contenedor git-sync y WordPress. Aquí llega el código descargado de GitHub. Dentro del contenedor de WordPress este volumen está montado en `/var/www/html/git`.
 
-(FOTO: captura de la terminal dentro de la máquina virtual mostrando el resultado de `ls ~/compose/` con los tres archivos de configuración, y el resultado de `docker volume ls` con los tres volúmenes `compose_db_data`, `compose_wp_content` y `compose_git_content` listados)
+![](img/estructura.png)
 
 ---
 
