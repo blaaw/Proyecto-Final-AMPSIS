@@ -20,27 +20,15 @@ Si ves un número de versión, Vagrant está bien instalado.
 
 ## Estructura de archivos del proyecto
 
-(FOTO: captura de la carpeta del proyecto abierta en el explorador de archivos o en GitHub, mostrando todos los ficheros juntos en la raíz del repositorio)
+- **`Vagrantfile`** orquesta todo el proceso de provisioning. Declara la box de Ubuntu 22.04, redirige el puerto 8080 del host al 8080 del guest, ejecuta `script-docker.sh` en el primer arranque, copia `docker-compose.yml`, `Dockerfile.git-sync` y `git-sync.sh` al directorio `~/compose/` de la VM, y lanza `docker compose up -d` como paso final del provisioning.
 
-- `Vagrantfile` orquesta todo el proceso de provisioning. Declara la box de Ubuntu 22.04, redirige el puerto 8080 del host al 8080 del guest, ejecuta `script-docker.sh` en el primer arranque, copia `docker-compose.yml`, `Dockerfile.git-sync` y `git-sync.sh` al directorio `~/compose/` de la VM, y lanza `docker compose up -d` como paso final del provisioning.
+- **`script-docker.sh`** instala el Docker Engine oficial sobre Ubuntu e instala `docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin` y `docker-compose-plugin`. Se ejecuta una sola vez durante el primer `vagrant up`.
 
-(FOTO: captura del archivo `Vagrantfile` abierto en GitHub, mostrando el bloque completo con las líneas de `provision "shell"`, `provision "file"` y el inline final de `docker compose up -d`)
+- **`docker-compose.yml`** define tres servicios. El servicio `db` corre MariaDB 10.6 con las credenciales de WordPress y el volumen `db_data`. El servicio `wordpress` usa la imagen de WordPress, depende de `db`, expone el puerto 8080 y monta dos volúmenes: `wp_content` para los archivos de WordPress y `git_content` en `/var/www/html/git` para el código descargado de GitHub. El servicio `git-sync` se construye desde `Dockerfile.git-sync`, monta `git_content` en `/git-site` y recibe la URL del repositorio a descargar mediante la variable de entorno `REPO_URL`.
 
-- `script-docker.sh` instala el Docker Engine oficial sobre Ubuntu e instala `docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin` y `docker-compose-plugin`. Se ejecuta una sola vez durante el primer `vagrant up`.
+- **`Dockerfile.git-sync`** construye la imagen del sincronizador. Parte de Alpine Linux, instala `git`, copia `git-sync.sh` al interior del contenedor, le da permisos de ejecución y lo declara como comando de arranque.
 
-(FOTO: captura del archivo `script-docker.sh` abierto en GitHub, mostrando todos los comandos del script desde `apt-get update` hasta la línea de instalación final)
-
-- `docker-compose.yml` define tres servicios. El servicio `db` corre MariaDB 10.6 con las credenciales de WordPress y el volumen `db_data`. El servicio `wordpress` usa la imagen de WordPress, depende de `db`, expone el puerto 8080 y monta dos volúmenes: `wp_content` para los archivos de WordPress y `git_content` en `/var/www/html/git` para el código descargado de GitHub. El servicio `git-sync` se construye desde `Dockerfile.git-sync`, monta `git_content` en `/git-site` y recibe la URL del repositorio a descargar mediante la variable de entorno `REPO_URL`.
-
-(FOTO: captura del archivo `docker-compose.yml` abierto en GitHub, mostrando los tres servicios: `db`, `wordpress` y `git-sync` con sus secciones de `volumes` y `environment`)
-
-- `Dockerfile.git-sync` construye la imagen del sincronizador. Parte de Alpine Linux, instala `git`, copia `git-sync.sh` al interior del contenedor, le da permisos de ejecución y lo declara como comando de arranque.
-
-(FOTO: captura del archivo `Dockerfile.git-sync` abierto en GitHub, mostrando las cinco líneas: `FROM`, `RUN apk`, `COPY`, `RUN chmod` y `CMD`)
-
-- `git-sync.sh` es el script que ejecuta el contenedor git-sync al arrancar. Comprueba si ya existe un repositorio clonado en `/git-site`. Si existe, ejecuta `git pull --ff-only` para traer los cambios nuevos. Si no existe, ejecuta `git clone` con la URL definida en `REPO_URL`. El resultado se deja en el volumen compartido `git_content`, que WordPress monta directamente en `/var/www/html/git`.
-
-(FOTO: captura del archivo `git-sync.sh` abierto en GitHub, mostrando el bloque completo con la condición `if [ -d "$DEST/.git" ]` y las ramas de `git pull` y `git clone`)
+- **`git-sync.sh`** es el script que ejecuta el contenedor git-sync al arrancar. Comprueba si ya existe un repositorio clonado en `/git-site`. Si existe, ejecuta `git pull --ff-only` para traer los cambios nuevos. Si no existe, ejecuta `git clone` con la URL definida en `REPO_URL`. El resultado se deja en el volumen compartido `git_content`, que WordPress monta directamente en `/var/www/html/git`.
 
 ---
 
