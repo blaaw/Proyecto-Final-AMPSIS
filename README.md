@@ -16,8 +16,6 @@ vagrant --version
 
 Si ves un número de versión, Vagrant está bien instalado.
 
-(FOTO: captura de la terminal mostrando el resultado de `vagrant --version`, por ejemplo `Vagrant 2.4.1`)
-
 ---
 
 ## Estructura de archivos del proyecto
@@ -60,8 +58,7 @@ Esto descarga todos los archivos del proyecto a una carpeta llamada `Proyecto-Fi
 cd Proyecto-Final-AMPSIS
 ```
 
-(FOTO: captura de la terminal tras ejecutar `git clone`, mostrando los mensajes de descarga y la carpeta creada)
-
+![](img/paso-1.png)
 
 ## Paso 2: Arrancar el sistema
 
@@ -75,8 +72,7 @@ El proceso completo tarda varios minutos la primera vez. En las siguientes ejecu
 
 Cuando termine, la terminal vuelve al prompt sin mostrar errores.
 
-(FOTO: captura de la terminal mientras se ejecuta `vagrant up`, mostrando los mensajes de progreso como `Importing base box`, `Running provisioner: shell` y el arranque final de los contenedores con `docker compose up -d`)
-
+![](img/paso-2.png)
 
 ## Paso 3: Comprobar que los servicios están activos
 
@@ -95,9 +91,7 @@ docker ps
 
 El primer comando muestra `Active: active (running)` en verde. El segundo muestra una tabla con tres filas para `wp_db`, `wp_site` y el contenedor de git-sync, todas con `STATUS: Up`.
 
-(FOTO: captura de la terminal dentro de la máquina virtual mostrando el resultado de `sudo systemctl status docker` con el estado `active (running)`, equivalente a la imagen `status-docker-guest.png` del repositorio original)
-
-(FOTO: captura del resultado de `docker ps` mostrando los tres contenedores en estado `Up` con sus nombres de contenedor y el puerto `0.0.0.0:8080->80/tcp` visible en la columna `PORTS` de `wp_site`)
+![](img/paso-3.png)
 
 Para salir de la máquina virtual:
 
@@ -116,7 +110,7 @@ http://localhost:8080/
 
 Deberías ver la pantalla de instalación de WordPress o el sitio web si ya estaba configurado previamente.
 
-(FOTO: captura del navegador mostrando la pantalla inicial de WordPress en `http://localhost:8080`, con el selector de idioma o el formulario de instalación visible)
+![](img/paso-4.png)
 
 Lo más probable es que tu página aparezca en:
  
@@ -124,8 +118,7 @@ Lo más probable es que tu página aparezca en:
 http://localhost:8080/git/
 ```
  
-(FOTO: captura del navegador mostrando la página del repositorio de GitHub cargada en `http://localhost:8080/git/`)
-
+![](img/paso-4-git.png)
 
 ## Cómo cambiar el repositorio de GitHub que se descarga
 
