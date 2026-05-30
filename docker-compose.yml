@@ -39,7 +39,7 @@ services:
     volumes:
       - git_content:/git-site
     environment:
-      REPO_URL: https://github.com/blaaw/trial-webpage
+      REPO_URL: https://github.com/blaaw/grass-component
     depends_on:
       - wordpress
 
